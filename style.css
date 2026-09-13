@@ -354,6 +354,44 @@ display: block;
    ======================================== */
 
 @media (max-width: 768px) {
+/* PERFIS DOS ANIMAIS NO CELULAR */
+
+.perfil-animal {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+    padding: 60px 0;
+}
+
+.foto-animal {
+    width: 100%;
+    max-width: 100%;
+}
+
+.imagem-animal {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+}
+
+.texto-animal {
+    width: 100%;
+    max-width: 100%;
+}
+
+.cargo-animal {
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.texto-animal h2 {
+    font-size: 40px;
+}
+
+.texto-animal p {
+    font-size: 17px;
+    line-height: 1.75;
+}
 
     /* TOPO E MENU */
 
