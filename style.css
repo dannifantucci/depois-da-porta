@@ -146,3 +146,318 @@ display: block;
     transform: translateY(-2px);
     box-shadow: 0 0 18px rgba(140, 99, 184, 0.25);
 }
+.menu a {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 1px;
+    background-color: #b995dd;
+    transition: width 0.3s ease;
+}
+
+.menu a:hover {
+    color: #cdb4e8;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+.card-caminho {
+    transition: transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                background-color 0.3s ease;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(140, 99, 184, 0.12) 0%,
+        rgba(140, 99, 184, 0.05) 35%,
+        transparent 70%
+    );
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.conteudo-hero,
+.area-porta {
+    position: relative;
+    z-index: 1;
+}
+.primeiros-textos {
+    position: relative;
+    border-top: 1px solid rgba(140, 99, 184, 0.08);
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(140, 99, 184, 0.07),
+            transparent 35%
+        );
+}
+
+.primeiros-textos::before {
+    content: "✦";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 18px;
+    background-color: #09070d;
+    color: #8c63b8;
+    font-size: 14px;
+    opacity: 0.8;
+}
+.card-caminho .icone-card {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.card-caminho:hover .icone-card {
+    transform: translateY(-3px) scale(1.08);
+}
+
+.card-caminho:hover {
+    transform: translateY(-8px) scale(1.01);
+    border-color: rgba(185, 149, 221, 0.9);
+    background-color: rgba(140, 99, 184, 0.12);
+    box-shadow:
+        0 16px 34px rgba(80, 49, 110, 0.30),
+        0 0 22px rgba(140, 99, 184, 0.18);
+}
+.pagina-interna {
+    padding: 70px 8% 100px;
+}
+
+.cabecalho-pagina {
+    max-width: 760px;
+    margin-bottom: 60px;
+}
+
+.cabecalho-pagina h1 {
+    font-size: 58px;
+    margin: 12px 0 20px;
+}
+
+.subtitulo-pagina {
+    font-size: 20px;
+    line-height: 1.7;
+    opacity: 0.78;
+}
+
+.intro-gatos {
+    max-width: 760px;
+    font-size: 18px;
+    line-height: 1.8;
+    opacity: 0.78;
+}
+.link-botao {
+    display: inline-block;
+    text-decoration: none;
+}
+.perfil-animal {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    padding: 80px 0;
+    border-top: 1px solid rgba(140, 99, 184, 0.12);
+}
+
+.foto-animal {
+    width: 42%;
+    max-width: 460px;
+}
+
+.placeholder-foto {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(185, 149, 221, 0.35);
+    border-radius: 24px;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(140, 99, 184, 0.12),
+            rgba(255, 255, 255, 0.02)
+        );
+    color: rgba(244, 239, 248, 0.5);
+}
+
+.texto-animal {
+    max-width: 620px;
+}
+
+.cargo-animal {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #b995dd;
+    margin-bottom: 14px;
+}
+
+.texto-animal h2 {
+    font-size: 46px;
+    margin: 0 0 24px;
+}
+
+.texto-animal p {
+    font-size: 18px;
+    line-height: 1.8;
+    opacity: 0.78;
+}
+.imagem-animal {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+    border-radius: 24px;
+    border: 1px solid rgba(185, 149, 221, 0.35);
+}
+.perfil-invertido {
+    flex-direction: row;
+}
+
+.detalhe-animal {
+    margin-top: 20px;
+    font-size: 14px !important;
+    letter-spacing: 1px;
+    color: #b995dd;
+    opacity: 0.75 !important;
+}
+.imagem-frodo {
+    object-fit: contain;
+    object-position: center;
+}
+/* ========================================
+   VERSÃO PARA CELULAR
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    /* TOPO E MENU */
+
+    .topo {
+        padding: 20px 18px;
+    }
+
+    .menu {
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+    }
+
+    .menu a {
+        font-size: 15px;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: auto;
+        flex-direction: column;
+        padding: 55px 24px 40px;
+        text-align: center;
+        gap: 35px;
+    }
+
+    .conteudo-hero {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .pequeno-titulo {
+        font-size: 11px;
+        letter-spacing: 3px;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin: 12px 0 18px;
+    }
+
+    .subtitulo {
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .botao-entrar {
+        margin-top: 22px;
+    }
+
+
+    /* PORTA */
+
+    .area-porta {
+        width: min(100%, 360px);
+        height: auto;
+        flex-shrink: 1;
+        margin: 0 auto;
+    }
+
+    .area-porta img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+
+    /* PRIMEIRA SEÇÃO */
+
+    .primeiros-textos {
+        padding: 60px 24px;
+    }
+
+    .apresentacao {
+        max-width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .mensagem-inicial {
+        font-size: 17px;
+    }
+
+    .texto-apresentacao {
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+
+    /* CARDS */
+
+    .caminhos {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .card-caminho {
+        width: 100%;
+        min-width: 0;
+        padding: 24px;
+        box-sizing: border-box;
+    }
+}
