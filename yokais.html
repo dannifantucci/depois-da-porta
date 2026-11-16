@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yōkais | Depois da Porta</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --noite:#0b0711; --roxo:#1b1026; --roxo2:#281638;
+      --linha:#68477b; --lilas:#d9b8f2; --texto:#f4eaf8; --muted:#bba9c8;
+      --rosa:#e7a8d6; --ouro:#e9c7a0;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;color:var(--texto);background:
+      radial-gradient(ellipse at 15% 0%,#321747 0,transparent 38%),
+      radial-gradient(ellipse at 90% 20%,#24102f 0,transparent 34%),var(--noite);
+      font-family:Georgia,"Times New Roman",serif;
+    }
+    a{color:inherit}
+    .yk-wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+    .yk-nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0;border-bottom:1px solid #ffffff17}
+    .yk-brand{text-decoration:none;font-size:15px;letter-spacing:.16em;font-weight:bold;color:var(--lilas)}
+    .yk-links{display:flex;gap:24px;flex-wrap:wrap}
+    .yk-links a{text-decoration:none;color:var(--muted);font-size:15px}
+    .yk-links a:hover,.yk-links .active{color:var(--lilas)}
+    .yk-hero{padding:74px 0 42px;text-align:center}
+    .yk-kicker{color:var(--rosa);letter-spacing:.2em;text-transform:uppercase;font-size:12px}
+    .yk-hero h1{font-size:clamp(42px,7vw,76px);line-height:1.05;margin:18px 0;color:#f3dffb}
+    .yk-hero p{max-width:650px;margin:0 auto;color:var(--muted);font-size:18px;line-height:1.7}
+    .yk-divider{width:130px;height:1px;background:linear-gradient(90deg,transparent,var(--linha),transparent);margin:30px auto}
+    .yk-tools{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:28px 0 18px}
+    .yk-search{width:min(420px,100%);padding:14px 17px;border:1px solid var(--linha);border-radius:999px;background:#100a18;color:var(--texto);font:16px Georgia,serif;outline:none}
+    .yk-search:focus{border-color:var(--lilas);box-shadow:0 0 0 3px #d9b8f222}
+    .yk-filter{border:1px solid #68477b;background:#1a1024;color:var(--muted);border-radius:999px;padding:10px 16px;font:14px Georgia,serif;cursor:pointer}
+    .yk-filter:hover,.yk-filter.selected{background:#4a2b60;color:#fff;border-color:#bd8be0}
+    .yk-note{text-align:center;color:#95839f;font-size:13px;margin:0 0 36px}
+    .yk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-bottom:70px}
+    .yk-card{border:1px solid #68477b66;border-radius:18px;overflow:hidden;background:linear-gradient(150deg,#21132e,#100b18);transition:transform .2s,border-color .2s}
+    .yk-card:hover{transform:translateY(-4px);border-color:#b987df}
+    .yk-art{height:210px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-size:92px}
+    .yk-art:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,#ffffff18,transparent 55%)}
+    .art-kitsune{background:linear-gradient(135deg,#381b43,#a34255 60%,#25102d)}
+    .art-yurei{background:linear-gradient(135deg,#121c36,#4a3b6d 60%,#171020)}
+    .art-oni{background:linear-gradient(135deg,#421b26,#a44736 60%,#21101c)}
+    .art-tengu{background:linear-gradient(135deg,#251a38,#76513f 60%,#100b18)}
+    .art-kappa{background:linear-gradient(135deg,#102d2c,#397b6b 60%,#101820)}
+    .art-tanuki{background:linear-gradient(135deg,#39271d,#9c6948 60%,#17101a)}
+    .yk-symbol{position:relative;filter:drop-shadow(0 8px 15px #0008)}
+    .yk-card-content{padding:20px}
+    .yk-type{color:var(--rosa);font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+    .yk-card h2{margin:9px 0 10px;font-size:25px;color:#f2dff8}
+    .yk-card p{color:var(--muted);line-height:1.65;margin:0 0 16px;font-size:15px}
+    .yk-more{border:0;background:none;padding:0;color:var(--lilas);font: bold 14px Georgia,serif;cursor:pointer}
+    .yk-more:hover{color:white}
+    .yk-detail{display:none;margin-top:15px;padding-top:14px;border-top:1px solid #ffffff18;color:#d5c5df;font-size:14px;line-height:1.7}
+    .yk-card.open .yk-detail{display:block}
+    .yk-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:35px}
+    .yk-footer{text-align:center;border-top:1px solid #ffffff17;padding:26px 0 38px;color:#8f7b9e;font-size:13px}
+    @media(max-width:800px){.yk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.yk-nav{align-items:flex-start;flex-direction:column}.yk-links{gap:16px}}
+    @media(max-width:520px){.yk-grid{grid-template-columns:1fr}.yk-hero{padding-top:50px}.yk-art{height:190px}}
+  </style>
+</head>
+<body>
+  <header class="yk-wrap yk-nav">
+    <a class="yk-brand" href="index.html">DEPOIS DA PORTA</a>
+    <nav class="yk-links" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="gatos.html">Gatos</a>
+      <a class="active" href="yokais.html">Yōkais</a>
+      <a href="index.html#sobre">Sobre</a>
+    </nav>
+  </header>
+
+  <main class="yk-wrap">
+    <section class="yk-hero">
+      <div class="yk-kicker">Folclore • Japão • Mistério</div>
+      <h1>Bestiário — Yōkais</h1>
+      <p>Espíritos, criaturas e seres extraordinários que habitam as histórias do Japão. Entre — se tiver coragem — e conheça algumas dessas lendas.</p>
+      <div class="yk-divider"></div>
+    </section>
+
+    <section aria-label="Buscar e filtrar yōkais">
+      <div class="yk-tools">
+        <input class="yk-search" id="yk-search" type="search" placeholder="Buscar um yōkai..." aria-label="Buscar um yōkai">
+      </div>
+      <div class="yk-tools" id="yk-filters">
+        <button class="yk-filter selected" data-filter="todos">Todos</button>
+        <button class="yk-filter" data-filter="espirito">Espíritos</button>
+        <button class="yk-filter" data-filter="criatura">Criaturas</button>
+        <button class="yk-filter" data-filter="aparicao">Aparições</button>
+        <button class="yk-filter" data-filter="entidade">Entidades</button>
+      </div>
+      <p class="yk-note">Escolha uma ficha para descobrir um pouco mais.</p>
+    </section>
+
+    <section class="yk-grid" id="yk-grid" aria-live="polite">
+      <article class="yk-card" data-category="entidade" data-name="kitsune raposa">
+        
+      <article class="yk-card" data-category="entidade aparicao" data-name="hannya">
+        <div class="yk-art art-hannya"><span class="yk-symbol">👹</span></div>
+        <div class="yk-card-content">
+          <span class="yk-type">Entidade • Transformação</span>
+          <h2>Hannya</h2>
+          <p>Nossa primeira criatura. História, ilustração e reflexão serão preparadas com cuidado.</p>
+          <button class="yk-more" aria-expanded="false">Abrir ficha +</button>
+          <div class="yk-detail"><strong>Em construção:</strong> esta ficha será desenvolvida especialmente para a publicação.</div>
+        </div>
+      </article>
+
+        <div class="yk-art art-kitsune"><span class="yk-symbol">🦊</span></div>
+        <div class="yk-card-content"><span class="yk-type">Entidade • Raposa</span><h2>Kitsune</h2>
+          <p>Raposa sobrenatural, conhecida por sua inteligência e habilidade de transformação.</p>
+          <button class="yk-more" aria-expanded="false">Abrir ficha +</button>
+          <div class="yk-detail"><strong>Na tradição:</strong> kitsune podem ser mensageiras de Inari ou figuras astutas capazes de assumir forma humana. Algumas lendas descrevem raposas com várias caudas — sinal de grande poder e idade.</div>
+        </div>
+      </article>
+      <article class="yk-card" data-category="espirito aparicao" data-name="yurei fantasma">
+        <div class="yk-art art-yurei"><span class="yk-symbol">👻</span></div>
+        <div class="yk-card-content"><span class="yk-type">Espírito • Aparição</span><h2>Yūrei</h2>
+          <p>Espírito de uma pessoa falecida que, segundo certas crenças, permanece entre os vivos.</p>
+          <button class="yk-more" aria-expanded="false">Abrir ficha +</button>
+          <div class="yk-detail"><strong>Na tradição:</strong> histórias de yūrei costumam envolver emoções intensas, assuntos não resolvidos ou ritos funerários incompletos. A imagem popular inclui vestes brancas e cabelos longos.</div>
+        </div>
+      </article>
+      <article class="yk-card" data-category="criatura entidade" data-name="oni demonio ogro">
+        <div class="yk-art art-oni"><span class="yk-symbol">👹</span></div>
+        <div class="yk-card-content"><span class="yk-type">Criatura • Entidade</span><h2>Oni</h2>
+          <p>Ser temível, frequentemente retratado com chifres, força extraordinária e aparência monstruosa.</p>
+          <button class="yk-more" aria-expanded="false">Abrir ficha +</button>
+          <div class="yk-detail"><strong>Na tradição:</strong> oni aparecem em narrativas como ameaças, guardiões ou figuras punidoras. São associados a clubes de ferro e, em representações populares, a pele vermelha ou azul.</div>
+        </div>
+      </article>
+      <article class="yk-card" data-category="criatura entidade" data-name="tengu">
+        <div class="yk-art art-tengu"><span class="yk-symbol">🪶</span></div>
+        <div class="yk-card-content"><span class="yk-type">Criatura • Guardião</span><h2>Tengu</h2>
+          <p>Ser associado às montanhas, às artes marciais e a poderes sobrenaturais.</p>
+          <button class="yk-more" aria-expanded="false">Abrir ficha +</button>
+          <div class="yk-detail"><strong>Na tradição:</strong> tengu aparecem em diferentes formas, incluindo figuras com bico ou nariz longo. Podem ser perigosos, orgulhosos ou protetores, dependendo da história.</div>
+        </div>
+      </article>
+      <article class="yk-card" data-category="criatura" data-name="kappa">
+        <div class="yk-art art-kappa"><span class="yk-symbol">🐢</span></div>
+        <div class="yk-card-content"><span class="yk-type">Criatura • Água</span><h2>Kappa</h2>
+          <p>Habitante dos rios e lagoas, conhecido pela cavidade cheia de água no topo da cabeça.</p>
+          <button class="yk-more" aria-expanded="false">Abrir ficha +</button>
+          <div class="yk-detail"><strong>Na tradição:</strong> kappa são personagens ambíguos: podem pregar peças e causar perigo, mas também cumprir promessas. A água no prato da cabeça é fonte de sua força em muitas versões.</div>
+        </div>
+      </article>
+      <article class="yk-card" data-category="criatura" data-name="tanuki guaxinim cão">
+        <div class="yk-art art-tanuki"><span class="yk-symbol">🦝</span></div>
+        <div class="yk-card-content"><span class="yk-type">Criatura • Metamorfo</span><h2>Tanuki</h2>
+          <p>Animal lendário brincalhão, famoso por suas transformações e truques.</p>
+          <button class="yk-more" aria-expanded="false">Abrir ficha +</button>
+          <div class="yk-detail"><strong>Na tradição:</strong> o tanuki do folclore é um metamorfo travesso, capaz de enganar humanos e alterar sua aparência. É frequentemente retratado de forma bem-humorada.</div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="yk-footer yk-wrap">Depois da Porta • Um pequeno arquivo de mistérios</footer>
+
+  <script>
+    const cards = [...document.querySelectorAll('.yk-card')];
+    const search = document.getElementById('yk-search');
+    const filters = [...document.querySelectorAll('.yk-filter')];
+    let category = 'todos';
+
+    function filterCards() {
+      const term = search.value.trim().toLocaleLowerCase('pt-BR');
+      let visible = 0;
+      cards.forEach(card => {
+        const matchesTerm = card.dataset.name.includes(term) || card.textContent.toLocaleLowerCase('pt-BR').includes(term);
+        const matchesCategory = category === 'todos' || card.dataset.category.split(' ').includes(category);
+        card.hidden = !(matchesTerm && matchesCategory);
+        if (!card.hidden) visible++;
+      });
+      let empty = document.querySelector('.yk-empty');
+      if (!visible && !empty) {
+        empty = document.createElement('p'); empty.className = 'yk-empty';
+        empty.textContent = 'Nenhum yōkai encontrado. Tente outra busca.';
+        document.getElementById('yk-grid').appendChild(empty);
+      } else if (visible && empty) empty.remove();
+    }
+    search.addEventListener('input', filterCards);
+    filters.forEach(button => button.addEventListener('click', () => {
+      category = button.dataset.filter;
+      filters.forEach(b => b.classList.toggle('selected', b === button));
+      filterCards();
+    }));
+    document.querySelectorAll('.yk-more').forEach(button => button.addEventListener('click', () => {
+      const card = button.closest('.yk-card');
+      const open = card.classList.toggle('open');
+      button.textContent = open ? 'Fechar ficha −' : 'Abrir ficha +';
+      button.setAttribute('aria-expanded', String(open));
+    }));
+  </script>
+</body>
+</html>

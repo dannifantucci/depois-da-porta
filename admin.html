@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo | Depois da Porta</title>
+    <link rel="stylesheet" href="style.css">
+
+    
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+            radial-gradient(ellipse at top, #21162e 0%, #09070d 65%);
+        color: #f0eaf5;
+        font-family: Georgia, serif;
+    }
+
+    .painel-admin {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20px;
+        box-sizing: border-box;
+    }
+
+    .login-admin {
+        width: 100%;
+        max-width: 430px;
+        padding: 42px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(185, 149, 221, 0.3);
+        border-radius: 22px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-admin h1 {
+        font-size: 36px;
+        line-height: 1.2;
+        margin: 14px 0;
+    }
+
+    .login-admin > p:not(.pequeno-titulo) {
+        color: #c6bacf;
+        line-height: 1.7;
+        margin-bottom: 30px;
+    }
+
+    #form-login {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #form-login label {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #e0d2ed;
+    }
+
+    #form-login input {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 13px 14px;
+        border-radius: 10px;
+        border: 1px solid #574366;
+        background: #110d17;
+        color: #f0eaf5;
+        font-size: 15px;
+        outline: none;
+    }
+
+    #form-login input:focus {
+        border-color: #b995dd;
+    }
+
+    #form-login .botao-entrar {
+        width: 100%;
+        margin-top: 16px;
+        padding: 14px;
+        cursor: pointer;
+    }
+
+    #mensagem-login {
+        color: #e0c9f7;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .voltar-site {
+        display: inline-block;
+        margin-top: 22px;
+        color: #c6a2e8;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .voltar-site:hover {
+        color: #f0e0ff;
+    }
+
+    @media (max-width: 480px) {
+        .login-admin {
+            padding: 28px 22px;
+        }
+
+        .login-admin h1 {
+            font-size: 30px;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <main class="painel-admin">
+        <section class="login-admin">
+            <p class="pequeno-titulo">ÁREA RESTRITA</p>
+
+            <h1>Bem-vinda de volta.</h1>
+
+            <p>
+                Entre para acessar os registros
+                e as estatísticas do Depois da Porta.
+            </p>
+
+            <form id="form-login">
+                <label for="email">E-mail</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Seu e-mail"
+                    required
+                >
+
+                <label for="senha">Senha</label>
+                <input
+                    type="password"
+                    id="senha"
+                    placeholder="Sua senha"
+                    required
+                >
+
+                <button type="submit" class="botao-entrar">
+                    Entrar no painel
+                </button>
+
+                <p id="mensagem-login" role="status"></p>
+            </form>
+
+            <a href="index.html" class="voltar-site">
+                ← Voltar ao site
+            </a>
+        </section>
+    
+<section id="painel-visitas" class="painel-visitas" hidden>
+
+    <div class="cabecalho-painel">
+        <p class="pequeno-titulo">DEPOIS DA PORTA</p>
+        <h2>Painel de visitas</h2>
+        <p>Acompanhe os caminhos que passaram por aqui.</p>
+    </div>
+
+    <div class="estatisticas">
+
+        
+<article class="card-estatistica">
+    <span>Visitantes únicos</span>
+    <strong id="visitantes-unicos">0</strong>
+</article>
+
+<article class="card-estatistica">
+    <span>Acessos totais</span>
+    <strong id="total-visitas">0</strong>
+</article>
+
+<article class="card-estatistica">
+    <span>Acessos hoje</span>
+    <strong id="visitas-hoje">0</strong>
+</article>
+
+<article class="card-estatistica">
+    <span>Acessos nos últimos 7 dias</span>
+    <strong id="visitas-semana">0</strong>
+</article>
+
+<article class="card-estatistica">
+    <span>Página mais visitada</span>
+    <strong id="pagina-popular">—</strong>
+</article>
+
+
+    </div>
+
+    <button id="botao-sair" class="botao-entrar">
+        Sair do painel
+    </button>
+
+    <section class="detalhes-visitas">
+
+        <h3>Visitas por página</h3>
+
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Página</th>
+                        <th>Acessos</th>
+                        <th>Visitantes únicos</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-paginas"></tbody>
+            </table>
+        </div>
+
+        <h3>Histórico de visitantes</h3>
+
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Visitante</th>
+                        <th>Total de acessos</th>
+                        <th>Primeira visita</th>
+                        <th>Última visita</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-visitantes"></tbody>
+            </table>
+        </div>
+
+        <h3>Histórico diário</h3>
+
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Acessos</th>
+                        <th>Visitantes únicos</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-diaria"></tbody>
+            </table>
+        </div>
+
+    </section>
+
+</section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://yjkeuumbgetioslvfkgm.supabase.co';
+
+        const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_f49qoTQR0pNiRkudA6RsXA_L0LS_7cI';
+
+        const supabaseClient = supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+        
+        const formLogin = document.querySelector('#form-login');
+        const mensagemLogin = document.querySelector('#mensagem-login');
+
+        formLogin.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            mensagemLogin.textContent = 'Verificando seu acesso...';
+
+            const email = document.querySelector('#email').value.trim();
+            const senha = document.querySelector('#senha').value;
+
+            const { data, error } =
+                await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: senha
+                });
+
+            if (error) {
+                console.error('Erro no login:', error);
+                mensagemLogin.textContent =
+                    mensagemLogin.textContent = 'Erro: ' + error.message;
+                return;
+            }
+
+            document.querySelector('.login-admin').hidden = true;
+
+document.querySelector('#painel-visitas').hidden = false;
+await carregarEstatisticas();
+
+    
+async function carregarEstatisticas() {
+    const { data, error } = await supabaseClient
+        .from('visitas')
+        .select('id, pagina, data_hora, visitante_id')
+        .order('data_hora', { ascending: false });
+
+    if (error) {
+        console.error('Erro ao carregar visitas:', error);
+        mensagemLogin.textContent = 'Erro ao carregar estatísticas.';
+        return;
+    }
+
+    const visitas = data || [];
+    const agora = new Date();
+
+    // ACESSOS TOTAIS
+    document.querySelector('#total-visitas').textContent =
+        visitas.length;
+
+    // VISITANTES ÚNICOS
+    const visitantesUnicos = new Set(
+        visitas.map(v => v.visitante_id).filter(Boolean)
+    );
+
+    document.querySelector('#visitantes-unicos').textContent =
+        visitantesUnicos.size;
+
+    // ACESSOS HOJE
+    const visitasHoje = visitas.filter(v =>
+        new Date(v.data_hora).toDateString() === agora.toDateString()
+    );
+
+    document.querySelector('#visitas-hoje').textContent =
+        visitasHoje.length;
+
+    // ÚLTIMOS 7 DIAS
+    const limiteSemana = new Date();
+    limiteSemana.setDate(limiteSemana.getDate() - 7);
+
+    const visitasSemana = visitas.filter(v =>
+        new Date(v.data_hora) >= limiteSemana
+    );
+
+    document.querySelector('#visitas-semana').textContent =
+        visitasSemana.length;
+
+    // NORMALIZAR PÁGINAS
+    function normalizarPagina(pagina) {
+        if (
+            pagina === '/' ||
+            pagina === '/index.html' ||
+            pagina.includes('depois-da-porta/index.html')
+        ) {
+            return '/index.html';
+        }
+
+        return pagina;
+    }
+
+    // PÁGINA MAIS VISITADA
+    const contagemPaginas = {};
+
+    visitas.forEach(v => {
+        const pagina = normalizarPagina(v.pagina);
+
+        contagemPaginas[pagina] =
+            (contagemPaginas[pagina] || 0) + 1;
+    });
+
+    const paginaPopular = Object.entries(contagemPaginas)
+        .sort((a, b) => b[1] - a[1])[0];
+
+    document.querySelector('#pagina-popular').textContent =
+        paginaPopular ? paginaPopular[0] : '—';
+
+    // RANKING DE PÁGINAS
+    const paginas = {};
+
+    visitas.forEach(v => {
+        const pagina = normalizarPagina(v.pagina);
+
+        if (!paginas[pagina]) {
+            paginas[pagina] = {
+                acessos: 0,
+                visitantes: new Set()
+            };
+        }
+
+        paginas[pagina].acessos++;
+
+        if (v.visitante_id) {
+            paginas[pagina].visitantes.add(v.visitante_id);
+        }
+    });
+
+    document.querySelector('#tabela-paginas').innerHTML =
+        Object.entries(paginas)
+            .sort((a, b) => b[1].acessos - a[1].acessos)
+            .map(([pagina, dados]) => `
+                <tr>
+                    <td>${pagina}</td>
+                    <td>${dados.acessos}</td>
+                    <td>${dados.visitantes.size}</td>
+                </tr>
+            `).join('');
+
+    // HISTÓRICO DE VISITANTES
+    const visitantes = {};
+
+    visitas.forEach(v => {
+        if (!v.visitante_id) return;
+
+        if (!visitantes[v.visitante_id]) {
+            visitantes[v.visitante_id] = {
+                total: 0,
+                primeira: v.data_hora,
+                ultima: v.data_hora
+            };
+        }
+
+        visitantes[v.visitante_id].total++;
+
+        // Como os registros estão em ordem decrescente:
+        visitantes[v.visitante_id].primeira = v.data_hora;
+    });
+
+    document.querySelector('#tabela-visitantes').innerHTML =
+        Object.entries(visitantes)
+            .sort((a, b) => b[1].total - a[1].total)
+            .map(([id, dados]) => `
+                <tr>
+                    <td>${id.substring(0, 8)}</td>
+                    <td>${dados.total}</td>
+                    <td>${new Date(dados.primeira).toLocaleString('pt-BR')}</td>
+                    <td>${new Date(dados.ultima).toLocaleString('pt-BR')}</td>
+                </tr>
+            `).join('');
+
+    // HISTÓRICO DIÁRIO
+    const dias = {};
+
+    visitas.forEach(v => {
+        const dia = new Date(v.data_hora).toLocaleDateString('pt-BR');
+
+        if (!dias[dia]) {
+            dias[dia] = {
+                acessos: 0,
+                visitantes: new Set()
+            };
+        }
+
+        dias[dia].acessos++;
+
+        if (v.visitante_id) {
+            dias[dia].visitantes.add(v.visitante_id);
+        }
+    });
+
+    document.querySelector('#tabela-diaria').innerHTML =
+        Object.entries(dias)
+            .map(([dia, dados]) => `
+                <tr>
+                    <td>${dia}</td>
+                    <td>${dados.acessos}</td>
+                    <td>${dados.visitantes.size}</td>
+                </tr>
+            `).join('');
+
+    mensagemLogin.textContent = '';
+}
+
+        });
+    
+
+    </script>
+</body>
+</html>
+

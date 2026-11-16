@@ -346,12 +346,15 @@ display: block;
     opacity: 0.75 !important;
 }
 .imagem-frodo {
+    .imagem-frodo 
+    aspect-ratio: auto;
+    height: auto;
     object-fit: contain;
-    object-position: center;
 }
 /* ========================================
    VERSÃO PARA CELULAR
    ======================================== */
+
 
 @media (max-width: 768px) {
 /* PERFIS DOS ANIMAIS NO CELULAR */
@@ -497,5 +500,138 @@ display: block;
         min-width: 0;
         padding: 24px;
         box-sizing: border-box;
+    }
+}
+/* GALERIA DA DIRETORIA */
+
+.galeria-diretoria {
+    display: grid;
+   grid-template-columns: repeat(3, minmax(0, 300px));
+justify-content: center;
+    gap: 32px;
+    padding: 50px 0;
+}
+
+.card-animal {
+    overflow: hidden;
+    border: 1px solid rgba(185, 149, 221, 0.25);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card-animal:hover {
+    transform: translateY(-6px);
+    border-color: rgba(185, 149, 221, 0.7);
+}
+
+.link-animal {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.imagem-card-animal {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    margin: 0 auto;
+    border-radius: 18px;
+}
+
+.info-card-animal {
+    padding: 22px;
+}
+
+.cargo-card-animal {
+    color: #b995dd;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.info-card-animal h2 {
+    font-size: 32px;
+    margin: 0 0 14px;
+}
+
+.botao-historia {
+    display: inline-block;
+    color: #b995dd;
+    font-size: 14px;
+}
+
+/* PAINEL DE VISITAS */
+
+.painel-visitas {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 40px;
+    border: 1px solid rgba(185, 149, 221, 0.3);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.cabecalho-painel {
+    margin-bottom: 35px;
+}
+
+.cabecalho-painel h2 {
+    font-size: 36px;
+    margin: 15px 0;
+}
+
+.cabecalho-painel p:last-child {
+    color: #c8bfd3;
+}
+
+.estatisticas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.card-estatistica {
+    padding: 25px;
+    border: 1px solid rgba(185, 149, 221, 0.2);
+    border-radius: 18px;
+    background: rgba(140, 99, 184, 0.06);
+    transition: transform 0.3s ease,
+                border-color 0.3s ease;
+}
+
+.card-estatistica:hover {
+    transform: translateY(-5px);
+    border-color: rgba(185, 149, 221, 0.7);
+}
+
+.card-estatistica span {
+    display: block;
+    color: #c8bfd3;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.card-estatistica strong {
+    display: block;
+    color: #b995dd;
+    font-size: 32px;
+    overflow-wrap: anywhere;
+}
+
+#botao-sair {
+    margin-top: 35px;
+}
+
+@media (max-width: 600px) {
+    .painel-visitas {
+        padding: 25px;
+    }
+
+    .estatisticas {
+        grid-template-columns: 1fr;
     }
 }
