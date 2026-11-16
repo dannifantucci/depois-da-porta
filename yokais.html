@@ -36,7 +36,7 @@
     .yk-filter{border:1px solid #68477b;background:#1a1024;color:var(--muted);border-radius:999px;padding:10px 16px;font:14px Georgia,serif;cursor:pointer}
     .yk-filter:hover,.yk-filter.selected{background:#4a2b60;color:#fff;border-color:#bd8be0}
     .yk-note{text-align:center;color:#95839f;font-size:13px;margin:0 0 36px}
-    .yk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-bottom:70px}
+    .yk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-bottom:70px;align-items:start}
     .yk-card{border:1px solid #68477b66;border-radius:18px;overflow:hidden;background:linear-gradient(150deg,#21132e,#100b18);transition:transform .2s,border-color .2s}
     .yk-card:hover{transform:translateY(-4px);border-color:#b987df}
     .yk-art{height:210px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-size:92px}
@@ -58,7 +58,11 @@
     .yk-card.open .yk-detail{display:block}
     .yk-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:35px}
     .yk-footer{text-align:center;border-top:1px solid #ffffff17;padding:26px 0 38px;color:#8f7b9e;font-size:13px}
-    @media(max-width:800px){.yk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.yk-nav{align-items:flex-start;flex-direction:column}.yk-links{gap:16px}}
+    @media(max-width:800px){
+    .yk-grid {
+        grid-template-columns: 1fr;
+    }
+}
     @media(max-width:520px){.yk-grid{grid-template-columns:1fr}.yk-hero{padding-top:50px}.yk-art{height:190px}}
   </style>
 </head>
