@@ -212,6 +212,7 @@ tbody tr:last-child td { border-bottom: 0; }
                         <th>Total de acessos</th>
                         <th>Primeira visita</th>
                         <th>Última visita</th>
+                        <th>Dispositivo</th>
                     </tr>
                 </thead>
                 <tbody id="tabela-visitantes"></tbody>
@@ -256,7 +257,7 @@ tbody tr:last-child td { border-bottom: 0; }
         async function carregarEstatisticas() {
             const { data, error } = await supabaseClient
                 .from('visitas')
-                .select('id, pagina, data_hora, visitante_id')
+                .select('id, pagina, data_hora, visitante_id, dispositivo')
                 .order('data_hora', { ascending: false });
 
             if (error) {
@@ -316,9 +317,15 @@ tbody tr:last-child td { border-bottom: 0; }
             visitas.forEach(v => {
                 if (!v.visitante_id) return;
                 if (!visitantes[v.visitante_id]) visitantes[v.visitante_id] = {
-                    total: 0, primeira: v.data_hora, ultima: v.data_hora
+                    total: 0,
+primeira: v.data_hora,
+ultima: v.data_hora,
+dispositivo: v.dispositivo || 'Desconhecido'
                 };
                 visitantes[v.visitante_id].total++;
+                if (v.dispositivo && visitantes[v.visitante_id].dispositivo === 'Desconhecido') {
+    visitantes[v.visitante_id].dispositivo = v.dispositivo;
+}
                 visitantes[v.visitante_id].primeira = v.data_hora;
             });
 
@@ -328,7 +335,8 @@ tbody tr:last-child td { border-bottom: 0; }
                 const tr = document.createElement('tr');
                 [id.substring(0,8), d.total,
                  new Date(d.primeira).toLocaleString('pt-BR'),
-                 new Date(d.ultima).toLocaleString('pt-BR')].forEach(x => {
+                 new Date(d.ultima).toLocaleString('pt-BR'),
+d.dispositivo].forEach(x => {
                     const td = document.createElement('td'); td.textContent = x; tr.appendChild(td);
                 });
                 tbodyVisitantes.appendChild(tr);
