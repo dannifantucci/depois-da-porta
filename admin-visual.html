@@ -253,7 +253,30 @@ tbody tr:last-child td { border-bottom: 0; }
         
         const formLogin = document.querySelector('#form-login');
         const mensagemLogin = document.querySelector('#mensagem-login');
+function identificarDispositivo(ua) {
+    if (!ua || ua === 'Desconhecido') {
+        return 'Desconhecido';
+    }
 
+    let sistema = 'Sistema desconhecido';
+    let navegador = 'Navegador desconhecido';
+
+    if (/Android/i.test(ua)) sistema = 'Android';
+    else if (/iPhone/i.test(ua)) sistema = 'iPhone';
+    else if (/iPad/i.test(ua)) sistema = 'iPad';
+    else if (/Windows/i.test(ua)) sistema = 'Windows';
+    else if (/Macintosh/i.test(ua)) sistema = 'macOS';
+    else if (/Linux/i.test(ua)) sistema = 'Linux';
+
+    if (/Edg/i.test(ua)) navegador = 'Edge';
+    else if (/OPR|Opera/i.test(ua)) navegador = 'Opera';
+    else if (/SamsungBrowser/i.test(ua)) navegador = 'Samsung Internet';
+    else if (/Firefox|FxiOS/i.test(ua)) navegador = 'Firefox';
+    else if (/Chrome|CriOS/i.test(ua)) navegador = 'Chrome';
+    else if (/Safari/i.test(ua)) navegador = 'Safari';
+
+    return sistema + ' · ' + navegador;
+}
         async function carregarEstatisticas() {
             const { data, error } = await supabaseClient
                 .from('visitas')
@@ -336,7 +359,7 @@ dispositivo: v.dispositivo || 'Desconhecido'
                 [id.substring(0,8), d.total,
                  new Date(d.primeira).toLocaleString('pt-BR'),
                  new Date(d.ultima).toLocaleString('pt-BR'),
-d.dispositivo].forEach(x => {
+identificarDispositivo(d.dispositivo)].forEach(x => {
                     const td = document.createElement('td'); td.textContent = x; tr.appendChild(td);
                 });
                 tbodyVisitantes.appendChild(tr);
