@@ -12,6 +12,9 @@ const supabaseClient = supabase.createClient(
 
 
 async function registrarVisita() {
+
+const dispositivo = navigator.userAgent;
+
     const pagina = window.location.pathname;
 
     let visitanteId = localStorage.getItem('visitante_id');
@@ -25,7 +28,8 @@ async function registrarVisita() {
         'registrar_visita_v2',
         {
             p_pagina: pagina,
-            p_visitante_id: visitanteId
+p_visitante_id: visitanteId,
+p_dispositivo: dispositivo
         }
     );
 
