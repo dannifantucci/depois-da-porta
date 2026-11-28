@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Por trás da porta | Depois da Porta</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <header class="topo">
+    <nav class="menu">
+        <a href="index.html">Início</a>
+        <a href="gatos.html">Gatos</a>
+        <a href="yokais.html">Yokais</a>
+        <a href="sobre.html">Sobre</a>
+    </nav>
+</header>
+
+    <main class="sobre-pagina">
+
+        <section class="sobre-apresentacao">
+
+            <p class="sobre-subtitulo">DEPOIS DA PORTA</p>
+
+            <img src="assets/imagens/porta-aberta.png"
+                alt="Uma porta aberta"
+                class="sobre-porta">
+
+            <h1>Por trás da porta</h1>
+
+            <p class="sobre-frase">
+                Todo lugar guarda um pouco de quem o construiu.
+            </p>
+
+            <p>
+                Entre códigos, histórias, desenhos e pequenas
+                obsessões, nasceu este cantinho da internet.
+                Um espaço em constante transformação,
+                assim como sua criadora.
+            </p>
+
+        </section>
+
+        <section class="sobre-interesses">
+
+            <h2>Pequenos fragmentos de mim</h2>
+
+            <div class="sobre-cards">
+
+                <article class="sobre-card">
+                    <span>📖</span>
+                    <h3>Entre páginas</h3>
+                    <p>Livros, vampiros e universos fantásticos.</p>
+                </article>
+
+                <article class="sobre-card">
+                    <span>💻</span>
+                    <h3>Entre códigos</h3>
+                    <p>Uma estudante de tecnologia construindo
+                        seu próprio mundo.</p>
+                </article>
+
+                <article class="sobre-card">
+                    <span>🐈‍⬛</span>
+                    <h3>Meus pequenos caos</h3>
+                    <p>Gatos, aventuras e pequenas doses
+                        diárias de felicidade.</p>
+                </article>
+
+                <article class="sobre-card">
+                    <span>🎨</span>
+                    <h3>Entre traços</h3>
+                    <p>Desenhos, carvão, criaturas e yokais.</p>
+                </article>
+
+            </div>
+
+        </section>
+<section class="sobre-historia">
+
+    <h2>A história deste lugar</h2>
+
+    <p class="historia-subtitulo">
+        Nem toda história termina onde imaginamos.
+    </p>
+
+    <div class="sobre-linha-tempo">
+
+        <article class="sobre-capitulo">
+            <span>Capítulo I</span>
+            <h3>O nascimento da porta</h3>
+            <p>
+                Tudo começou com palavras que precisavam
+                encontrar um lugar.
+            </p>
+        </article>
+
+        <article class="sobre-capitulo">
+            <span>Capítulo II</span>
+            <h3>As primeiras descobertas</h3>
+            <p>
+                Entre histórias, gatos e criaturas fantásticas,
+                novos mundos começaram a surgir.
+            </p>
+        </article>
+
+        <article class="sobre-capitulo">
+            <span>Capítulo III</span>
+            <h3>Por trás dos códigos</h3>
+            <p>
+                O que era um refúgio também se tornou
+                um espaço de aprendizado e criação.
+            </p>
+        </article>
+
+        <article class="sobre-capitulo">
+            <span>Capítulo IV</span>
+            <h3>O próximo capítulo</h3>
+            <p>Ainda sendo escrito...</p>
+        </article>
+
+    </div>
+
+    <p class="historia-final">
+        E a porta permanece aberta.
+    </p>
+
+</section>
+<section class="sobre-biblioteca">
+
+    <h2>Minha pequena biblioteca</h2>
+
+    <p class="biblioteca-subtitulo">
+        Há mundos inteiros escondidos entre páginas.
+    </p>
+
+    <div class="biblioteca-estante">
+
+        <button type="button" class="biblioteca-livro livro-dracula"
+            data-livro="dracula">
+            <small>Bram Stoker</small>
+            <span class="livro-simbolo">🦇</span>
+            <strong>Drácula</strong>
+            <span class="livro-ornamento">✦ ─ ✦</span>
+        </button>
+
+        <button type="button" class="biblioteca-livro livro-tolkien"
+            data-livro="tolkien">
+            <small>J. R. R. Tolkien</small>
+            <span class="livro-simbolo">✧</span>
+            <strong>O Silmarillion</strong>
+            <span class="livro-ornamento">✦ ─ ✦</span>
+        </button>
+<button type="button" class="biblioteca-livro livro-hobbit"
+    data-livro="hobbit">
+    <small>J. R. R. Tolkien</small>
+    <span class="livro-simbolo">ᛟ</span>
+    <strong>O Hobbit</strong>
+    <span class="livro-ornamento">✦ ─ ✦</span>
+</button>
+
+<button type="button" class="biblioteca-livro livro-aneis"
+    data-livro="aneis">
+    <small>J. R. R. Tolkien</small>
+    <span class="livro-simbolo">◎</span>
+    <strong>O Senhor dos Anéis</strong>
+    <span class="livro-ornamento">✦ ─ ✦</span>
+</button>
+        <button type="button" class="biblioteca-livro livro-castelo"
+            data-livro="castelo">
+            <small>Diana Wynne Jones</small>
+            <span class="livro-simbolo">☾</span>
+            <strong>O Castelo Animado</strong>
+            <span class="livro-ornamento">✦ ─ ✦</span>
+        </button>
+
+        <button type="button" class="biblioteca-livro livro-yokais"
+            data-livro="yokais">
+            <small>Folclore japonês</small>
+            <span class="livro-simbolo">❀</span>
+            <strong>Yokais</strong>
+            <span class="livro-ornamento">✦ ─ ✦</span>
+        </button>
+
+    </div>
+
+    <div class="biblioteca-prateleira"></div>
+
+    <div id="biblioteca-detalhes" aria-live="polite">
+        <h3 id="biblioteca-titulo">Escolha um livro</h3>
+        <p id="biblioteca-autor"></p>
+        <p id="biblioteca-descricao">
+            Cada livro guarda um universo.
+            Qual deles você deseja explorar?
+        </p>
+    </div>
+
+</section>
+<section class="sobre-constelacao">
+
+    <h2>Minha pequena constelação</h2>
+
+    <p class="constelacao-subtitulo">
+        Somos feitos de pequenos universos.
+    </p>
+
+    <div class="constelacao-ceu">
+
+        <svg class="constelacao-linhas"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true">
+
+            <path d="M50 12 L85 35 L75 78 L25 78 L15 35 Z
+                     M50 12 L75 78
+                     M15 35 L85 35
+                     M25 78 L50 12
+                     M50 50 L50 12
+                     M50 50 L85 35
+                     M50 50 L75 78
+                     M50 50 L25 78
+                     M50 50 L15 35" />
+
+        </svg>
+
+        <button type="button"
+            class="constelacao-estrela estrela-literatura"
+            data-estrela="literatura">
+            <span>✦</span>
+            <small>Literatura</small>
+        </button>
+
+        <button type="button"
+            class="constelacao-estrela estrela-tecnologia"
+            data-estrela="tecnologia">
+            <span>✦</span>
+            <small>Tecnologia</small>
+        </button>
+
+        <button type="button"
+            class="constelacao-estrela estrela-arte"
+            data-estrela="arte">
+            <span>✦</span>
+            <small>Arte</small>
+        </button>
+
+        <button type="button"
+            class="constelacao-estrela estrela-yokais"
+            data-estrela="yokais">
+            <span>✦</span>
+            <small>Yokais</small>
+        </button>
+
+        <button type="button"
+            class="constelacao-estrela estrela-gatos"
+            data-estrela="gatos">
+            <span>✦</span>
+            <small>Gatos</small>
+        </button>
+
+        <button type="button"
+            class="constelacao-estrela estrela-central"
+            data-estrela="universo">
+            <span>✧</span>
+            <small>Meu universo</small>
+        </button>
+
+    </div>
+
+    <div id="constelacao-detalhes" aria-live="polite">
+
+        <h3 id="constelacao-titulo">
+            Cada estrela conta uma história
+        </h3>
+
+        <p id="constelacao-descricao">
+            Escolha uma estrela para descobrir seu significado.
+        </p>
+
+    </div>
+
+</section>
+<section class="sobre-diario">
+
+    <h2>Entre códigos e descobertas</h2>
+
+    <p class="diario-subtitulo">
+        Nem toda magia acontece por encanto.
+        Algumas precisam de muitas linhas de código.
+    </p>
+
+    <div class="diario-caderno">
+
+        <article class="diario-registro">
+
+            <time datetime="2026-11-25">
+                25 de novembro de 2026
+            </time>
+
+            <span class="diario-selo">Desenvolvimento</span>
+
+            <h3>Além das palavras</h3>
+
+            <p>
+                Hoje, este pequeno espaço ganhou novas formas.
+                Uma porta encantada, uma biblioteca interativa
+                e uma constelação de interesses passaram a fazer
+                parte deste universo.
+            </p>
+
+            <p>
+                Aos poucos, descubro que programar também é
+                uma maneira de contar histórias.
+            </p>
+
+        </article>
+
+        <article class="diario-registro">
+
+            <time datetime="2026-11-25">
+                25 de novembro de 2026
+            </time>
+
+            <span class="diario-selo">Aprendizado</span>
+
+            <h3>A magia por trás dos números</h3>
+
+            <p>
+                Entre bancos de dados, funções, testes e erros,
+                aprendi um pouco mais sobre o funcionamento
+                de um site além daquilo que os olhos conseguem ver.
+            </p>
+
+            <p>
+                Nem sempre o código funciona na primeira tentativa.
+                Mas cada erro resolvido é uma pequena conquista.
+            </p>
+
+        </article>
+
+        <div class="diario-proximo">
+
+            <span>✒</span>
+
+            <h3>As próximas páginas...</h3>
+
+            <p>
+                Ainda existem muitas coisas para aprender,
+                criar, descobrir e escrever.
+            </p>
+
+        </div>
+
+    </div>
+
+    <p class="diario-assinatura">
+        Com curiosidade, carinho e algumas linhas de código.
+    </p>
+
+</section>
+<section class="sobre-capsula">
+
+    <h2>Para quem ainda serei</h2>
+
+    <p class="capsula-subtitulo">
+        Algumas palavras precisam esperar pelo momento certo.
+    </p>
+
+    <div class="capsula-container">
+
+        <div class="capsula-envelope" aria-hidden="true">
+
+            <div class="envelope-dobra"></div>
+
+            <div class="envelope-lacre">
+                ✦
+            </div>
+
+        </div>
+
+        <p class="capsula-data">
+            Lacrada em 25 de novembro de 2026
+        </p>
+
+        <div id="capsula-contagem">
+
+            <div class="capsula-tempo">
+                <strong id="capsula-dias">—</strong>
+                <span>Dias</span>
+            </div>
+
+            <div class="capsula-tempo">
+                <strong id="capsula-horas">—</strong>
+                <span>Horas</span>
+            </div>
+
+            <div class="capsula-tempo">
+                <strong id="capsula-minutos">—</strong>
+                <span>Minutos</span>
+            </div>
+
+            <div class="capsula-tempo">
+                <strong id="capsula-segundos">—</strong>
+                <span>Segundos</span>
+            </div>
+
+        </div>
+
+        <p id="capsula-status">
+            🔒 Aguardando o momento certo.
+        </p>
+
+        <p class="capsula-abertura">
+            Abertura: 25 de novembro de 2027
+        </p>
+
+        <div id="capsula-carta" hidden></div>
+
+    </div>
+
+    <p class="capsula-assinatura">
+        Da pessoa que sou hoje,
+        para aquela que ainda estou me tornando.
+    </p>
+
+</section>
+        <section class="sobre-segredo">
+
+            <button type="button" id="chave-secreta"
+                aria-label="Revelar segredo"
+                aria-expanded="false">
+                🔑
+            </button>
+
+            <p>Algumas portas guardam segredos...</p>
+
+            <p id="mensagem-secreta" hidden>
+                Nem todas as portas precisam levar a algum lugar.
+                Algumas existem para nos lembrar de quem somos.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Depois da Porta — Ainda sendo escrito...</p>
+    </footer>
+
+    <script>
+        const supabaseCapsula = supabase.createClient(
+    'https://yjkeuumbgetioslvfkgm.supabase.co',
+    'sb_publishable_f49qoTQR0pNiRkudA6RsXA_L0LS_7cI'
+);
+        const chave = document.querySelector('#chave-secreta');
+        const segredo = document.querySelector('#mensagem-secreta');
+
+        chave.addEventListener('click', () => {
+            segredo.hidden = !segredo.hidden;
+            chave.setAttribute('aria-expanded', String(!segredo.hidden));
+        });
+        const livrosBiblioteca = {
+    dracula: {
+        titulo: 'Drácula',
+        autor: 'Bram Stoker',
+        descricao: 'Entre sombras, mistérios e criaturas da noite. Uma história à qual sempre vale a pena retornar.'
+    },
+
+    tolkien: {
+        titulo: 'O Silmarillion',
+        autor: 'J. R. R. Tolkien',
+        descricao: 'Antes dos grandes acontecimentos da Terra-média, existiam canções, lendas e histórias tão antigas quanto o próprio mundo.'
+    },
+
+    hobbit: {
+        titulo: 'O Hobbit',
+        autor: 'J. R. R. Tolkien',
+        descricao: 'Até as menores criaturas podem viver as maiores aventuras. Tudo começa quando alguém decide sair pela porta.'
+    },
+
+    aneis: {
+        titulo: 'O Senhor dos Anéis',
+        autor: 'J. R. R. Tolkien',
+        descricao: 'Uma jornada sobre amizade, coragem, esperança e a importância de continuar, mesmo quando o caminho parece impossível.'
+    },
+
+    castelo: {
+        titulo: 'O Castelo Animado',
+        autor: 'Diana Wynne Jones',
+        descricao: 'Entre magia, estrelas e um castelo que nunca fica parado, descobrimos que nem tudo é exatamente como parece.'
+    },
+
+    yokais: {
+        titulo: 'Yokais',
+        autor: 'Folclore japonês',
+        descricao: 'Criaturas misteriosas que habitam as fronteiras entre o conhecido e o sobrenatural. Uma fonte de inspiração para novos desenhos.'
+    }
+};
+
+document.querySelectorAll('.biblioteca-livro').forEach(botao => {
+    botao.addEventListener('click', () => {
+        const livro = livrosBiblioteca[botao.dataset.livro];
+
+        document.querySelector('#biblioteca-titulo').textContent =
+            livro.titulo;
+
+        document.querySelector('#biblioteca-autor').textContent =
+            livro.autor;
+
+        document.querySelector('#biblioteca-descricao').textContent =
+            livro.descricao;
+    });
+});
+const estrelasConstelacao = {
+
+    literatura: {
+        titulo: 'Literatura',
+        descricao: 'Entre vampiros, lendas e universos fantásticos, encontro mundos onde minha imaginação pode morar.'
+    },
+
+    tecnologia: {
+        titulo: 'Tecnologia',
+        descricao: 'Entre erros, descobertas e linhas de código, aprendo a transformar ideias em pequenos universos digitais.'
+    },
+
+    arte: {
+        titulo: 'Arte',
+        descricao: 'Entre traços, sombras e páginas em branco, encontro outras maneiras de expressar aquilo que as palavras nem sempre conseguem.'
+    },
+
+    yokais: {
+        titulo: 'Yokais',
+        descricao: 'O fascínio pelas criaturas misteriosas, pelas antigas lendas japonesas e por tudo aquilo que habita as fronteiras do desconhecido.'
+    },
+
+    gatos: {
+        titulo: 'Gatos',
+        descricao: 'Pequenas patas, grandes personalidades e uma capacidade extraordinária de transformar qualquer dia comum em uma aventura.'
+    },
+
+    universo: {
+        titulo: 'Meu pequeno universo',
+        descricao: 'Sou feita de histórias, curiosidades, afetos, descobertas e pequenos encantamentos. Cada estrela representa uma parte de mim, mas nenhuma delas, sozinha, seria capaz de me definir.'
+    }
+
+};
+
+document.querySelectorAll('.constelacao-estrela').forEach(botao => {
+
+    botao.addEventListener('click', () => {
+
+        const estrela = estrelasConstelacao[botao.dataset.estrela];
+
+        document.querySelector('#constelacao-titulo').textContent =
+            estrela.titulo;
+
+        document.querySelector('#constelacao-descricao').textContent =
+            estrela.descricao;
+
+    });
+
+});
+
+const dataAberturaCapsula = new Date(
+    '2027-11-25T00:00:00-03:00'
+).getTime();
+
+async function consultarCapsula() {
+    const { data, error } = await supabaseCapsula
+        .from('capsula_tempo')
+        .select('id, titulo, conteudo, abertura_em, publica')
+        .eq('publica', true)
+        .order('abertura_em', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+    if (error) {
+        console.error('Erro ao consultar cápsula:', error);
+        return;
+    }
+
+    if (!data) {
+        return;
+    }
+
+    const carta = document.querySelector('#capsula-carta');
+
+    const titulo = document.createElement('h3');
+    titulo.textContent = data.titulo;
+
+    const conteudo = document.createElement('p');
+    conteudo.textContent = data.conteudo;
+    conteudo.style.whiteSpace = 'pre-wrap';
+
+    carta.replaceChildren(titulo, conteudo);
+    carta.hidden = false;
+
+    document.querySelector('#capsula-status').textContent =
+        '✨ A cápsula foi aberta.';
+}
+function atualizarCapsula() {
+
+    const agora = Date.now();
+    const restante = dataAberturaCapsula - agora;
+
+    const totalSegundos = Math.max(
+        0, Math.floor(restante / 1000)
+    );
+
+    const dias = Math.floor(totalSegundos / 86400);
+    const horas = Math.floor((totalSegundos % 86400) / 3600);
+    const minutos = Math.floor((totalSegundos % 3600) / 60);
+    const segundos = totalSegundos % 60;
+
+    document.querySelector('#capsula-dias').textContent =
+        String(dias).padStart(2, '0');
+
+    document.querySelector('#capsula-horas').textContent =
+        String(horas).padStart(2, '0');
+
+    document.querySelector('#capsula-minutos').textContent =
+        String(minutos).padStart(2, '0');
+
+    document.querySelector('#capsula-segundos').textContent =
+        String(segundos).padStart(2, '0');
+
+    if (restante <= 0) {
+
+        document.querySelector('#capsula-status').textContent =
+            '✨ Chegou o dia! Aguardando a abertura da carta.';
+
+    }
+
+}
+
+atualizarCapsula();
+
+setInterval(atualizarCapsula, 1000);
+consultarCapsula();
+    </script>
+
+</body>
+</html>
