@@ -180,7 +180,15 @@ tbody tr:last-child td { border-bottom: 0; }
 
 
     </div>
+<div style="margin: 20px 0;">
+    <label for="filtro-acessos">Filtrar acessos:</label>
 
+    <select id="filtro-acessos">
+        <option value="todos">Todos os acessos</option>
+        <option value="externos">Excluir meus acessos</option>
+        <option value="proprios">Somente meus acessos</option>
+    </select>
+</div>
     <button id="botao-sair" class="botao-entrar">
         Sair do painel
     </button>
@@ -201,7 +209,20 @@ tbody tr:last-child td { border-bottom: 0; }
                 <tbody id="tabela-paginas"></tbody>
             </table>
         </div>
+<h3>Ranking das origens de acesso</h3>
 
+<div class="tabela-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Origem</th>
+                <th>Total de acessos</th>
+                <th>Visitantes únicos</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-origens"></tbody>
+    </table>
+</div>
         <h3>Histórico de visitantes</h3>
 
         <div class="tabela-container">
@@ -213,12 +234,32 @@ tbody tr:last-child td { border-bottom: 0; }
                         <th>Primeira visita</th>
                         <th>Última visita</th>
                         <th>Dispositivo</th>
+                        <th>Última origem do acesso</th>
                     </tr>
                 </thead>
                 <tbody id="tabela-visitantes"></tbody>
             </table>
         </div>
 
+        <h3>Localização aproximada dos acessos</h3>
+
+<div class="tabela-container">
+    <table>
+        <thead>
+            <tr>
+                <th>País</th>
+                <th>Estado</th>
+                <th>Região</th>
+                <th>Total de acessos</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-geografia">
+            <tr>
+                <td colspan="4">Aguardando dados.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
         <h3>Histórico diário</h3>
 
         <div class="tabela-container">
@@ -260,27 +301,118 @@ function identificarDispositivo(ua) {
 
     let sistema = 'Sistema desconhecido';
     let navegador = 'Navegador desconhecido';
+    let aplicativo = '';
 
-    if (/Android/i.test(ua)) sistema = 'Android';
-    else if (/iPhone/i.test(ua)) sistema = 'iPhone';
+    const android = ua.match(/Android\s([\d.]+)/i);
+    const ios = ua.match(/(?:CPU(?: iPhone)? OS|iPhone OS)\s([\d_]+)/i);
+
+    if (/Android/i.test(ua)) {
+        sistema = 'Android' + (android ? ' ' + android[1] : '');
+    }
+    else if (/iPhone/i.test(ua)) {
+        sistema = 'iPhone' + (ios ? ' · iOS ' + ios[1].replace(/_/g, '.') : '');
+    }
     else if (/iPad/i.test(ua)) sistema = 'iPad';
     else if (/Windows/i.test(ua)) sistema = 'Windows';
     else if (/Macintosh/i.test(ua)) sistema = 'macOS';
     else if (/Linux/i.test(ua)) sistema = 'Linux';
 
-    if (/Edg/i.test(ua)) navegador = 'Edge';
-    else if (/OPR|Opera/i.test(ua)) navegador = 'Opera';
-    else if (/SamsungBrowser/i.test(ua)) navegador = 'Samsung Internet';
-    else if (/Firefox|FxiOS/i.test(ua)) navegador = 'Firefox';
-    else if (/Chrome|CriOS/i.test(ua)) navegador = 'Chrome';
-    else if (/Safari/i.test(ua)) navegador = 'Safari';
+    const navegadores = [
+        ['Edge', /(?:Edg|EdgA|EdgiOS)\/([\d.]+)/i],
+        ['Opera', /(?:OPR|Opera)\/([\d.]+)/i],
+        ['Samsung Internet', /SamsungBrowser\/([\d.]+)/i],
+        ['Firefox', /(?:Firefox|FxiOS)\/([\d.]+)/i],
+        ['Chrome', /(?:Chrome|CriOS)\/([\d.]+)/i],
+        ['Safari', /Version\/([\d.]+).*Safari/i]
+    ];
 
-    return sistema + ' · ' + navegador;
+    for (const [nome, regex] of navegadores) {
+        const resultado = ua.match(regex);
+
+        if (resultado) {
+            navegador = nome + ' ' + resultado[1].split('.')[0];
+            break;
+        }
+    }
+
+    if (/Instagram/i.test(ua)) aplicativo = 'Instagram';
+    else if (/FBAN|FBAV/i.test(ua)) aplicativo = 'Facebook';
+    else if (/;\s*wv\b/i.test(ua)) aplicativo = 'WebView';
+
+    return [sistema, navegador, aplicativo]
+        .filter(Boolean)
+        .join(' · ');
+}
+async function carregarGeografia() {
+    const tbody = document.querySelector('#tabela-geografia');
+if (!tbody) return;
+    const { data, error } = await supabaseClient
+        .from('visitas_geografia')
+        .select('pais, estado, cidade, total_acessos');
+
+    tbody.replaceChildren();
+
+    if (error || !data || data.length === 0) {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+
+        td.colSpan = 4;
+        td.textContent = error
+            ? 'Não foi possível carregar os dados geográficos.'
+            : 'Nenhum dado geográfico disponível.';
+
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+        return;
+    }
+
+    const regioes = new Map();
+
+    for (const registro of data) {
+        const chave = JSON.stringify([
+            registro.pais,
+            registro.estado,
+            registro.cidade
+        ]);
+
+        regioes.set(
+            chave,
+            (regioes.get(chave) || 0) + Number(registro.total_acessos)
+        );
+    }
+
+    const ranking = [...regioes.entries()]
+        .filter(([, total]) => total >= 5)
+        .sort((a, b) => b[1] - a[1]);
+
+    for (const [chave, total] of ranking) {
+        const tr = document.createElement('tr');
+
+        for (const valor of [...JSON.parse(chave), total]) {
+            const td = document.createElement('td');
+            td.textContent = valor;
+            tr.appendChild(td);
+        }
+
+        tbody.appendChild(tr);
+    }
+
+    if (ranking.length === 0) {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+
+        td.colSpan = 4;
+        td.textContent = 'Dados insuficientes para exibição.';
+
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+    }
 }
         async function carregarEstatisticas() {
+                await carregarGeografia();
             const { data, error } = await supabaseClient
                 .from('visitas')
-                .select('id, pagina, data_hora, visitante_id, dispositivo')
+                .select('id, pagina, data_hora, visitante_id, dispositivo, referrer, utm_source, utm_medium, utm_campaign, ambiente')
                 .order('data_hora', { ascending: false });
 
             if (error) {
@@ -289,7 +421,29 @@ function identificarDispositivo(ua) {
                 return;
             }
 
-            const visitas = data || [];
+            const { data: proprios, error: erroProprios } = await supabaseClient
+    .from('visitantes_proprios')
+    .select('visitante_id');
+
+if (erroProprios) {
+    console.error('Erro ao consultar visitantes próprios:', erroProprios);
+    mensagemLogin.textContent = 'Erro ao carregar filtro de acessos.';
+    return;
+}
+
+const idsProprios = new Set(
+    (proprios || []).map(v => v.visitante_id)
+);
+
+const filtro = document.querySelector('#filtro-acessos').value;
+
+let visitas = data || [];
+
+if (filtro === 'externos') {
+    visitas = visitas.filter(v => !idsProprios.has(v.visitante_id));
+} else if (filtro === 'proprios') {
+    visitas = visitas.filter(v => idsProprios.has(v.visitante_id));
+}
             const agora = new Date();
 
             document.querySelector('#total-visitas').textContent = visitas.length;
@@ -337,13 +491,53 @@ function identificarDispositivo(ua) {
             });
 
             const visitantes = {};
+            const origens = {};
+
+visitas.forEach(v => {
+    const origem = v.ambiente === 'local'
+        ? 'Ambiente local (teste)'
+        : v.utm_source || v.referrer || 'Origem desconhecida';
+
+    if (!origens[origem]) {
+        origens[origem] = {
+            acessos: 0,
+            visitantes: new Set()
+        };
+    }
+
+    origens[origem].acessos++;
+
+    if (v.visitante_id) {
+        origens[origem].visitantes.add(v.visitante_id);
+    }
+});
+
+const tbodyOrigens = document.querySelector('#tabela-origens');
+tbodyOrigens.replaceChildren();
+
+Object.entries(origens)
+    .sort((a, b) => b[1].acessos - a[1].acessos)
+    .forEach(([origem, d]) => {
+        const tr = document.createElement('tr');
+
+        [origem, d.acessos, d.visitantes.size].forEach(x => {
+            const td = document.createElement('td');
+            td.textContent = x;
+            tr.appendChild(td);
+        });
+
+        tbodyOrigens.appendChild(tr);
+    });
             visitas.forEach(v => {
                 if (!v.visitante_id) return;
                 if (!visitantes[v.visitante_id]) visitantes[v.visitante_id] = {
                     total: 0,
 primeira: v.data_hora,
 ultima: v.data_hora,
-dispositivo: v.dispositivo || 'Desconhecido'
+dispositivo: v.dispositivo || 'Desconhecido',
+origem: v.ambiente === 'local'
+    ? 'Ambiente local (teste)'
+    : v.utm_source || v.referrer || 'Origem desconhecida'
                 };
                 visitantes[v.visitante_id].total++;
                 if (v.dispositivo && visitantes[v.visitante_id].dispositivo === 'Desconhecido') {
@@ -359,9 +553,23 @@ dispositivo: v.dispositivo || 'Desconhecido'
                 [id.substring(0,8), d.total,
                  new Date(d.primeira).toLocaleString('pt-BR'),
                  new Date(d.ultima).toLocaleString('pt-BR'),
-identificarDispositivo(d.dispositivo)].forEach(x => {
+identificarDispositivo(d.dispositivo),
+d.origem].forEach(x => {
                     const td = document.createElement('td'); td.textContent = x; tr.appendChild(td);
                 });
+                const celulaId = tr.cells[0];
+
+const botaoHistorico = document.createElement('button');
+botaoHistorico.type = 'button';
+botaoHistorico.textContent = id.substring(0, 8);
+botaoHistorico.style.cssText =
+    'background: transparent; border: none; color: #c29ce5; cursor: pointer; text-decoration: underline;';
+
+botaoHistorico.addEventListener('click', () => {
+    abrirHistorico(id, visitas);
+});
+
+celulaId.replaceChildren(botaoHistorico);
                 tbodyVisitantes.appendChild(tr);
             });
 
@@ -387,7 +595,45 @@ identificarDispositivo(d.dispositivo)].forEach(x => {
             });
             mensagemLogin.textContent = '';
         }
+document.querySelector('#filtro-acessos')
+    .addEventListener('change', carregarEstatisticas);
+    function abrirHistorico(id, visitas) {
+    const registros = visitas.filter(v => v.visitante_id === id);
 
+    document.querySelector('#titulo-historico').textContent =
+        'Visitante ' + id.substring(0, 8);
+
+    document.querySelector('#resumo-historico').textContent =
+        'Total de acessos: ' + registros.length;
+
+    const tbody = document.querySelector('#tabela-historico-individual');
+    tbody.replaceChildren();
+
+    registros.forEach(v => {
+        const origem = v.ambiente === 'local'
+            ? 'Ambiente local (teste)'
+            : v.utm_source || v.referrer || 'Origem desconhecida';
+
+        const tr = document.createElement('tr');
+
+        [
+            new Date(v.data_hora).toLocaleString('pt-BR'),
+            v.pagina,
+            identificarDispositivo(v.dispositivo),
+            origem,
+            v.utm_campaign || '—',
+            v.ambiente || 'Desconhecido'
+        ].forEach(valor => {
+            const td = document.createElement('td');
+            td.textContent = valor;
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+
+    document.querySelector('#modal-historico').showModal();
+}
         formLogin.addEventListener('submit', async function (event) {
             event.preventDefault();
             mensagemLogin.textContent = 'Verificando seu acesso...';
@@ -415,6 +661,38 @@ identificarDispositivo(d.dispositivo)].forEach(x => {
             mensagemLogin.textContent = 'Você saiu do painel.';
         });
     </script>
+    <dialog id="modal-historico"
+    style="background: #1c1326; color: #f1e7fa;
+    border: 1px solid #7954a1; border-radius: 16px;
+    padding: 25px; width: 90%; max-width: 1000px;
+    max-height: 80vh; overflow: auto;">
+
+    <h3 id="titulo-historico">Histórico individual</h3>
+
+    <p id="resumo-historico"></p>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data e horário</th>
+                    <th>Página</th>
+                    <th>Dispositivo</th>
+                    <th>Origem</th>
+                    <th>Campanha</th>
+                    <th>Ambiente</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-historico-individual"></tbody>
+        </table>
+    </div>
+
+    <button type="button" class="botao-entrar"
+        onclick="document.querySelector('#modal-historico').close()">
+        Fechar histórico
+    </button>
+
+</dialog>
 </body>
 </html>
 
